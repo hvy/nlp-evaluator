@@ -1,7 +1,10 @@
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
 
-src/main/resources/documents/
-src/main/resources/models
+src/main/resources/documents/tagged/*
+src/main/resources/models/*
+
+!src/main/resources/documents/tagged/README.md
+!src/main/resources/models/README.md
 
 target/
 
