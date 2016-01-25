@@ -2,41 +2,48 @@ package pos;
 
 import edu.stanford.nlp.ling.TaggedWord;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
-import edu.stanford.nlp.trees.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.Reader;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
- * Created by hiroyuki on 25/01/2016.
+ * A class that is responsible for the POS tagging.
+ *
+ * @author hvy
+ * @version 1.0
  */
 public class PosTagger {
 
   private PosTaggerModel mModel;
   private MaxentTagger mTagger;
 
+  /**
+   * Constructor.
+   *
+   * @param taggerModel The model tagger model.
+   */
   public PosTagger(PosTaggerModel taggerModel) {
     mModel = taggerModel;
     mTagger = new MaxentTagger(taggerModel.getModelFilePath());
   }
 
+  /**
+   * @return The current model.
+   */
   public PosTaggerModel getTaggerModel() {
     return mModel;
   }
 
+  /**
+   * Tag the given words by modifying their property values.
+   *
+   * @param untaggedWords The untagged words that are to be modified and tagger.
+   */
   public void tagWords(List<PosWord> untaggedWords) {
 
     List<TaggedWord> taggedPosWords = mTagger.apply(untaggedWords);
 
     for (int i = 0; i < taggedPosWords.size(); i++) {
       TaggedWord taggedPosWord = taggedPosWords.get(i);
-
-      // Add a tag the object that was passed as an argument.
       untaggedWords.get(i).setTag(taggedPosWord.tag());
     }
   }

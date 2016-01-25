@@ -13,30 +13,40 @@ import java.util.stream.Collectors;
  */
 public class PosEvaluator {
 
-  private StopWatch mStopWatch;
-
+  /**
+   * Constructor.
+   */
   public PosEvaluator() {
-    mStopWatch = new StopWatch();
   }
 
+  /**
+   * Run a POS tagger evaluation.
+   *
+   * @param tagger The POS tagger that is to be evaluated.
+   * @param taggedDocumentWords The list of tagged document words.
+   * @return The evaluation results.
+   */
   public PosEvaluation evaluateTaggerWith(PosTagger tagger, List<PosWord>[] taggedDocumentWords) {
 
-    float totTimeMs = 0;
+    float totalTimeMs = 0;
     int numTotalWords = 0;
     int numCorrectWords = 0;
+
+    StopWatch stopWatch = new StopWatch();
 
     // For each document, get their lists of words.
     for (List<PosWord> targetWords : taggedDocumentWords) {
 
+      // Create a copy but without the target tags.
       List<PosWord> taggingWords = targetWords
           .stream()
           .map(taggedWord -> new PosWord(taggedWord.word()))
           .collect(Collectors.toList());
 
       // Start the time measurer and do the POS tagging.
-      mStopWatch.start();
+      stopWatch.start();
       tagger.tagWords(taggingWords);
-      totTimeMs += mStopWatch.stop();
+      totalTimeMs += stopWatch.stop();
 
       for (int i = 0; i < targetWords.size(); i++) {
 
@@ -52,8 +62,7 @@ public class PosEvaluator {
     }
 
     float accuracy = (float) numCorrectWords / (float) numTotalWords;
-
-    return new PosEvaluation(accuracy, totTimeMs);
+    return new PosEvaluation(accuracy, totalTimeMs);
   }
 }
 

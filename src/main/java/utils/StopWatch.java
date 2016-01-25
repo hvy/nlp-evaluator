@@ -8,7 +8,7 @@ package utils;
  */
 public class StopWatch {
 
-  private long startTimeMillis = 0;
+  private long mStartTimeMillis = 0;
 
   /**
    * Constructor.
@@ -20,7 +20,7 @@ public class StopWatch {
    * Resets and starts the stop watch.
    */
   public void start() {
-    startTimeMillis = System.currentTimeMillis();
+    mStartTimeMillis = System.currentTimeMillis();
   }
 
   /**
@@ -29,6 +29,6 @@ public class StopWatch {
    * @return The time interval in ms since the last start.
    */
   public float stop() {
-    return System.currentTimeMillis() - startTimeMillis;
+    return System.currentTimeMillis() - mStartTimeMillis;
   }
 }

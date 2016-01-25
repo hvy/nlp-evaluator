@@ -8,14 +8,29 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by hiroyuki on 26/01/2016.
+ * Class responsible for parsing Penn Tree annotated text files into word objects.
+ *
+ * @author hvy
+ * @version 1.0
  */
 public class PosFileParser {
 
+  /**
+   * Constructor.
+   */
   public PosFileParser() {
   }
 
-  public List<PosWord> parse(File file) {
+  /**
+   * Parse the given Penn Tree annotated file and return a list of words with their corresponding tags.
+   *
+   * @param file The Penn Tree annotated file.
+   * @return A list of words with their corresponding tags.
+   */
+  public List<PosWord> parsePennTree(File file) {
+
+    List<PosWord> words = new ArrayList<>();
+
     Treebank treebank = new DiskTreebank(in -> {
       return new PennTreeReader(in, new LabeledScoredTreeFactory(),
           new NPTmpRetainingTreeNormalizer());
@@ -23,7 +38,7 @@ public class PosFileParser {
 
     treebank.loadPath(file);
 
-    List<PosWord> words = new ArrayList<>();
+    // Convert the Stanford CoreNLP TaggedWord objects into PosWords and add all of them to the returning array.
     for (Tree tree : treebank) {
       words.addAll(tree.taggedYield()
           .stream()
@@ -35,3 +50,4 @@ public class PosFileParser {
     return words;
   }
 }
+
