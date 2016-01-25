@@ -9,7 +9,7 @@
 * [Apache Maven](https://maven.apache.org) *Tested with Maven 3.3.9*
 
 ### Installation
-Run the following commands to clone the repository and install the game in the current working directory.
+Run the following commands to clone the repository and install the evaluator in the current working directory.
 
 ```
 git clone https://github.com/hvy/nlp-evaluator.git
