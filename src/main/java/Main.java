@@ -23,8 +23,8 @@ public class Main {
     PosTagger[] posTaggers = selectTaggers();
 
     for (PosTagger posTagger : posTaggers) {
-      List[] taggedWords = selectTaggedWords();
-      PosEvaluation posEvaluation = evaluator.evaluateTaggerWith(posTagger, taggedWords);
+      List[] taggedDocuments = selectTaggedDocuments();
+      PosEvaluation posEvaluation = evaluator.evaluateTaggerWith(posTagger, taggedDocuments);
 
       System.out.println(posTagger.getTaggerModel());
       System.out.println(posEvaluation);
@@ -33,7 +33,7 @@ public class Main {
   }
 
   /**
-   * Should be implemented such that it returns the POS taggers with their corresponding models.
+   * Should be implemented such that it returns the POS taggers with their corresponding models that are to be evaluated.
    *
    * @return The POS taggers to evaluate.
    */
@@ -51,17 +51,17 @@ public class Main {
    *
    * @return A List of PosWords per documents.
    */
-  private static List<PosWord>[] selectTaggedWords() {
+  private static List<PosWord>[] selectTaggedDocuments() {
 
     PosFileParser posFileParser = new PosFileParser();
-    File[] taggedFiles = ResourceManager.getResourceFiles("documents/tagged");
-    List<PosWord>[] taggedWords = new List[taggedFiles.length];
+    File[] taggedPennTreeFiles = ResourceManager.getResourceFiles("documents/tagged");
+    List<PosWord>[] taggedDocuments = new List[taggedPennTreeFiles.length];
 
-    for (int i = 0; i < taggedFiles.length; i++) {
-      taggedWords[i] = posFileParser.parsePennTree(taggedFiles[i]);
+    for (int i = 0; i < taggedPennTreeFiles.length; i++) {
+      taggedDocuments[i] = posFileParser.parsePennTree(taggedPennTreeFiles[i]);
     }
 
-    return taggedWords;
+    return taggedDocuments;
   }
 }
 

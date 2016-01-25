@@ -23,10 +23,10 @@ public class PosEvaluator {
    * Run a POS tagger evaluation.
    *
    * @param tagger The POS tagger that is to be evaluated.
-   * @param taggedDocumentWords The list of tagged document words.
+   * @param taggedDocuments The list of tagged document words.
    * @return The evaluation results.
    */
-  public PosEvaluation evaluateTaggerWith(PosTagger tagger, List<PosWord>[] taggedDocumentWords) {
+  public PosEvaluation evaluateTaggerWith(PosTagger tagger, List<PosWord>[] taggedDocuments) {
 
     float totalTimeMs = 0;
     int numTotalWords = 0;
@@ -35,10 +35,10 @@ public class PosEvaluator {
     StopWatch stopWatch = new StopWatch();
 
     // For each document, get their lists of words.
-    for (List<PosWord> targetWords : taggedDocumentWords) {
+    for (List<PosWord> targetDocumentWords : taggedDocuments) {
 
       // Create a copy but without the target tags.
-      List<PosWord> taggingWords = targetWords
+      List<PosWord> taggingWords = targetDocumentWords
           .stream()
           .map(taggedWord -> new PosWord(taggedWord.word()))
           .collect(Collectors.toList());
@@ -48,17 +48,17 @@ public class PosEvaluator {
       tagger.tagWords(taggingWords);
       totalTimeMs += stopWatch.stop();
 
-      for (int i = 0; i < targetWords.size(); i++) {
+      for (int i = 0; i < targetDocumentWords.size(); i++) {
 
-        assert(targetWords.get(i).word().equals(taggingWords.get(i).word()));
+        assert(targetDocumentWords.get(i).word().equals(taggingWords.get(i).word()));
 
-        String targetWordTag = targetWords.get(i).tag();
+        String targetWordTag = targetDocumentWords.get(i).tag();
         String taggedWordTag = taggingWords.get(i).tag();
         if (targetWordTag.equals(taggedWordTag)) {
           numCorrectWords++;
         }
       }
-      numTotalWords += targetWords.size();
+      numTotalWords += targetDocumentWords.size();
     }
 
     float accuracy = (float) numCorrectWords / (float) numTotalWords;
