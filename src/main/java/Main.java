@@ -19,10 +19,13 @@ public class Main {
    */
   public static void main(String[] args) {
 
-    PosEvaluator evaluator = new PosEvaluator();
+    // Get the POS models to evaluate
     PosTagger[] posTaggers = selectTaggers();
+
+    // Get the test data
     List<PosWord>[] taggedDocuments = selectTaggedDocuments();
 
+    // Count the number of words solely for printing.
     int numWords = 0;
     for (int i = 0; i < taggedDocuments.length; i++) {
       numWords += taggedDocuments[i].size();
@@ -31,6 +34,8 @@ public class Main {
     System.out.println("Documents: " + taggedDocuments.length);
     System.out.println("Words: " + numWords);
     System.out.println();
+
+    PosEvaluator evaluator = new PosEvaluator();
 
     for (PosTagger posTagger : posTaggers) {
       PosEvaluation posEvaluation = evaluator.evaluateTaggerWith(posTagger, taggedDocuments);
