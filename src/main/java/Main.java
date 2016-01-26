@@ -21,9 +21,18 @@ public class Main {
 
     PosEvaluator evaluator = new PosEvaluator();
     PosTagger[] posTaggers = selectTaggers();
+    List<PosWord>[] taggedDocuments = selectTaggedDocuments();
+
+    int numWords = 0;
+    for (int i = 0; i < taggedDocuments.length; i++) {
+      numWords += taggedDocuments[i].size();
+    }
+
+    System.out.println("Documents: " + taggedDocuments.length);
+    System.out.println("Words: " + numWords);
+    System.out.println();
 
     for (PosTagger posTagger : posTaggers) {
-      List[] taggedDocuments = selectTaggedDocuments();
       PosEvaluation posEvaluation = evaluator.evaluateTaggerWith(posTagger, taggedDocuments);
 
       System.out.println(posTagger.getTaggerModel());
