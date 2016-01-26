@@ -1,6 +1,6 @@
 ## Tagged Documents (Test Data) Directory
 
-Penn Treebank annotated (POS tagged) test data should be put in this directory and the evaluator will read all of them and use them as test data for the POS tagger evaluation.
+Penn Treebank annotated (POS tagged) test data should be put in the tagged directory and the evaluator will read all of them and use them as test data for the POS tagger evaluation.
 
 ### Reference
 

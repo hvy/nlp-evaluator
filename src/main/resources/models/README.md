@@ -1,6 +1,6 @@
 ## POS Tagger Models
 
-The POS tagger models files (.tagger files and their corresponding .props files) should be put in this directory which can be downloaded [here](http://nlp.stanford.edu/software/tagger.shtml).
+The POS tagger models files (.tagger files and their corresponding .props files) should be put in this directory. They can be downloaded [here](http://nlp.stanford.edu/software/tagger.shtml).
 
 ### Note
 
